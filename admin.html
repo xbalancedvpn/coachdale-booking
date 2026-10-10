@@ -7,7 +7,7 @@
 <title>Coach Dale | Coaching Operations</title>
 <link rel="icon" type="image/png" href="assets/branding/coach-dale-favicon.png?v=1">
 <link rel="apple-touch-icon" href="assets/branding/coach-dale-favicon.png?v=1">
-<link rel="stylesheet" href="dale-kyle-admin.css?v=2"><link rel="stylesheet" href="dale-date-picker.css?v=2"><link rel="stylesheet" href="dale-typography.css?v=1"><link rel="stylesheet" href="dale-admin-inline-calendar.css?v=1">
+<link rel="stylesheet" href="dale-kyle-admin.css?v=2"><link rel="stylesheet" href="dale-date-picker.css?v=2"><link rel="stylesheet" href="dale-typography.css?v=1"><link rel="stylesheet" href="dale-admin-inline-calendar.css?v=1"><link rel="stylesheet" href="dale-weekly-schedule.css?v=1">
 </head><body>
 <div id="adminNotice" class="da-status-toast" role="status" aria-live="polite"></div>
 <section id="daleLogin" class="auth">
@@ -169,8 +169,24 @@
   </section>
   <section class="admin-flow-heading"><span class="eyebrow">PUBLIC CONTENT</span><h2>What Clients See</h2><p>Weekly availability, photos, and testimonials for the public website.</p></section>
   <section class="panel" id="weeklyScheduleSection">
-   <div class="panel-head"><div><span class="eyebrow">WEEKLY AVAILABILITY</span><h2>Share Your Schedule</h2><p class="panel-note">Generate a weekly availability card in PNG format.</p></div><button id="opsWeekly" class="primary" type="button">GENERATE WEEKLY PNG</button></div>
-   <div id="weeklySummary" class="panel-note">Choose a starting date when generating the card.</div>
+   <div class="panel-head">
+     <div><span class="eyebrow">WEEKLY AVAILABILITY</span><h2>Share Your Schedule</h2><p class="panel-note">Kyle-style Monday–Sunday hourly timetable, personalized with Coach Dale's Alpine Elite branding.</p></div>
+     <button id="opsWeekly" class="ghost" type="button">SELECT WEEK</button>
+   </div>
+   <div class="dale-weekly-controls" id="daleWeeklyControls">
+     <label class="dale-week-field" for="weeklyStart">Choose a date in the week
+       <input id="weeklyStart" type="date" data-date-title="Choose a schedule week" aria-describedby="weeklyRange">
+     </label>
+     <div class="dale-week-shift" aria-label="Weekly navigation">
+       <button id="prevWeek" type="button">← Previous</button>
+       <button id="thisWeek" type="button">This week</button>
+       <button id="nextWeek" type="button">Next →</button>
+     </div>
+     <button id="generateWeeklySchedule" class="primary" type="button">GENERATE WEEKLY CARD</button>
+   </div>
+   <p id="weeklyRange" class="panel-note" aria-live="polite">Choose your week.</p>
+   <div id="weeklySummary" class="panel-note">Select a week and generate to check the latest schedule.</div>
+   <p id="weeklyToast" role="status" aria-live="polite" hidden></p>
   </section>
   <section class="panel" id="mediaSection">
    <div class="panel-head"><div><span class="eyebrow">PUBLIC GALLERY & REVIEWS</span><h2>Photos & Testimonials</h2></div></div>
@@ -196,10 +212,25 @@
    <form id="opsForm" style="display:grid;gap:12px"></form><p id="opsStatus" role="status" aria-live="polite"></p>
   </div>
  </dialog>
+ <dialog id="weeklyScheduleDialog" class="weekly-card-dialog" aria-labelledby="weeklyScheduleTitle">
+   <div class="dale-weekly-dialog-content">
+     <div class="dale-weekly-dialog-head">
+       <div><span class="eyebrow">READY TO SHARE</span><h2 id="weeklyScheduleTitle">Weekly Coaching Availability</h2></div>
+       <button id="closeWeeklySchedule" type="button" aria-label="Close weekly schedule preview">×</button>
+     </div>
+     <canvas id="weeklyScheduleCanvas" width="1800" height="1350" aria-label="Coach Dale's weekly coaching availability grid"></canvas>
+     <p class="dale-weekly-privacy">Only schedule status is shown. No player names or booking details appear in the shared PNG.</p>
+     <div class="dale-weekly-dialog-actions">
+       <button id="saveWeeklySchedule" type="button">SAVE PNG</button>
+       <button id="shareWeeklySchedule" type="button">SHARE TO APPS</button>
+       <button id="closeWeeklyScheduleBottom" type="button">CLOSE</button>
+     </div>
+   </div>
+ </dialog>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/dist/umd/supabase.js"></script>
 <script>window.DALE_SUPABASE_KEY="sb_publishable_2I-ZQ7mAxp8mDSftamqgSw_dHTmHZbs"</script>
 <script src="dale-ops.js?v=3"></script>
 <script src="dale-kyle-admin.js?v=2"></script><script src="dale-media-admin.js?v=1"></script>
-<script src="dale-admin.js?v=6"></script><script src="dale-date-picker.js?v=2"></script><script src="dale-admin-calendar.js?v=1"></script>
+<script src="dale-admin.js?v=6"></script><script src="dale-date-picker.js?v=2"></script><script src="dale-admin-calendar.js?v=1"></script><script src="dale-weekly-schedule.js?v=1"></script>
 </body></html>
