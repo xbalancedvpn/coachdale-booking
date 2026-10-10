@@ -13,5 +13,5 @@ async function clientsPanel(){await load();const listing=clients.slice(0,30).map
 function sync(b,l){bookings=b;locks=l;load().catch(e=>console.warn("Operations list:",e.message))}
 function setAuthorized(v){allowed=!!v;if(v)load().catch(e=>console.warn(e.message))}
 $("opsClose").onclick=()=>$("opsDialog").close();$("opsManual").onclick=()=>show("New Manual Booking",bookingFields()+button,createBooking);$("opsClients").onclick=clientsPanel;$("opsReports").onclick=reports;
-$("opsProgress").onclick=assessment;$("opsWeekly").onclick=weeklyCard;window.DaleOps={open,sync,setAuthorized};
+$("opsProgress").onclick=assessment;$("opsWeekly").onclick=weeklyCard;window.DaleOps={open,sync,setAuthorized,load,meta:()=>({clients,payments})};
 })();
