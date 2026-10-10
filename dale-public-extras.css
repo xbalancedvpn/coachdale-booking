@@ -3,3 +3,10 @@
 #testimonialList .testimonial-card p{color:#516A59}
 #gallerySection .gallery-carousel{min-height:230px}
 #gallerySection .gallery-carousel img{max-width:100%;height:auto}
+
+/* Dale Alpine Elite moderated-review styling */
+.testimonial-submit{background:#173F35;color:#F5F1E8;border:1px solid #5D7E68}
+.testimonial-submit p{color:#D7E4D7}
+.testimonial-submit input,.testimonial-submit select,.testimonial-submit textarea{background:#F8F9F5;color:#203C2E;border:1px solid #9DAF9F}
+.testimonial-submit .anon-row input{accent-color:#BD8D64}
+.gallery-dots span.active{background:#BD8D64}
