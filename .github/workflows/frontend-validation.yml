@@ -48,6 +48,10 @@ jobs:
           if(!publicPage.includes("dale-brand-photos.css"))throw Error("Public photo styling is not loaded.");
           if(!photoStyles.includes(dashboard))throw Error("Dashboard washup must reference action JPG.");
           if(!photoStyles.includes("#coach .coach-photo img"))throw Error("Profile photograph must be full quality.");
+          if(!publicPage.includes('class="hero-bg-photo" src="'+dashboard+'"'))throw Error("Public hero action-photo background missing.");
+          if(!publicPage.includes('class="nav-favicon" src="assets/branding/coach-dale-favicon.png"'))throw Error("Header must use the two-letter favicon PNG.");
+          if(publicPage.includes('class="hero-visual"><img class="hero-photo" src="assets/pickleball-generic.svg"'))throw Error("Old generic illustration should not cover the public hero.");
+          if(!photoStyles.includes("#home.hero > .hero-bg-photo"))throw Error("Public hero photo washout styling missing.");
           console.log("Coach Dale JPG photo placements verified.");
           console.log("Frontend asset & element checks passed.");
           JS
