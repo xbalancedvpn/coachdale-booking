@@ -450,3 +450,8 @@ body{background:#102F28;color:var(--ivory)}
 #daleDashboard .da-footer-nav span{font-size:20px}
 @media(max-width:1070px){#daleDashboard .metrics{grid-template-columns:repeat(3,minmax(0,1fr))}#daleDashboard .report-metrics{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){#daleDashboard .top{gap:8px;padding:12px 15px}#daleDashboard .top #adminEmail{display:none}#daleDashboard .wrap{padding:25px 16px 92px}#daleDashboard .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}#daleDashboard .hero{align-items:flex-start}#daleDashboard .hero h1{font-size:48px}#daleDashboard .da-footer-nav{display:flex}#daleDashboard .admin-panel-controls input{max-width:100%}#daleDashboard .panel-head{align-items:flex-start;flex-direction:column}#daleDashboard .da-quick{width:100%}#daleDashboard .admin-head-actions .admin-email{display:none}}
+
+/* Auto-dismissable notices, preserving Kyle's unobtrusive status UX */
+#adminNotice:empty{display:none!important}
+#adminNotice.da-status-toast:not(:empty){position:fixed;top:86px;right:16px;z-index:150;background:#173F35;color:#F5F1E8;border:1px solid #BD8D64;border-radius:12px;padding:11px 15px;box-shadow:0 15px 40px #0004;max-width:min(360px,calc(100vw - 32px));font-size:12px;font-weight:700;line-height:1.5;pointer-events:none}
+#adminNotice.da-status-toast.show{animation:dale-toast 5.5s ease-out forwards}@keyframes dale-toast{0%,78%{opacity:1}100%{opacity:0;visibility:hidden}}
