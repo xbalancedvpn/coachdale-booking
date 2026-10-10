@@ -140,7 +140,7 @@ for(const a of $("adminNav").querySelectorAll("a"))a.onclick=()=>nav(true);
 $("adminManualBookingLink").onclick=e=>{e.preventDefault();nav(true);$("opsManual").click()};
 $("adminNotifyBtn").onclick=()=>{const panel=$("adminNotifyPanel"),expanded=panel.classList.toggle("open");$("adminNotifyBtn").setAttribute("aria-expanded",String(expanded))};
 $("shareBookingLinkBtn").onclick=async()=>{const u="https://coachdale.xbalanced.net/#book";try{if(navigator.share)await navigator.share({title:"Coach Dale Booking",url:u});else{await navigator.clipboard.writeText(u);alert("Booking link copied!")}}catch(e){if(e.name!=="AbortError")prompt("Copy Coach Dale booking link:",u)}};
-$("quickWeeklyScheduleBtn").onclick=()=>$("opsWeekly").click();
+$("quickWeeklyScheduleBtn").onclick=()=>window.DaleWeekly?.generateCurrentWeek();
 $("clientSearch").oninput=renderClients;$("reportPeriod").onchange=report;$("blockDate").onchange=()=>setTimeout(renderSchedule,0);
 for(const [id,btn] of areaConfigs){const b=$(btn);if(b)b.onclick=()=>{opened[id]=!opened[id];basic()}}
 window.DaleKyle={render,signedIn,signedOut};
