@@ -101,7 +101,7 @@ function shiftWeek(n){
 function toast(message,isError=false){
  const node=$("weeklyToast");
  if(!node)return;
- node.textContent=message;node.hidden=false;node.classList.toggle("is-error",isError);
+ node.textContent=message;node.hidden=!message;node.classList.toggle("is-error",isError);
 }
 function setBusy(value){
  state.busy=value;
@@ -123,7 +123,7 @@ async function fetchSelectedWeek(){
 function rounded(ctx,x,y,w,h,r){
  ctx.beginPath();
  if(ctx.roundRect)ctx.roundRect(x,y,w,h,r);
- else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,y,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);}
+ else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);}
  ctx.closePath();
 }
 function paintRect(ctx,x,y,w,h,fill,r=0){
