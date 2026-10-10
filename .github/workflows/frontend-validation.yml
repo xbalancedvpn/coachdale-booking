@@ -1,0 +1,39 @@
+name: Coach Dale Frontend Validation
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frontend-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JavaScript syntax
+        run: |
+          for f in dale-booking.js dale-admin.js dale-ops.js dale-kyle-admin.js dale-public-ui.js dale-media-admin.js; do
+            node --check "$f"
+          done
+      - name: Verify required site assets and IDs
+        run: |
+          node <<'JS'
+          const fs=require("fs");
+          const pages=[
+            ["index.html",["daleForm","daleDate","daleHours","daleSubmit","testimonialForm","nav","menuBtn"]],
+            ["admin.html",["daleDashboard","daleLogin","loginForm","opsDialog","blockForm","opsManual","mediaManagement","todayBookings","inquiries","bookings"]]
+          ];
+          for(const [name,required] of pages){
+            const html=fs.readFileSync(name,"utf8");
+            const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
+            for(const id of required)if(!ids.includes(id))throw Error(name+": missing "+id);
+            const duplicate=ids.find((id,i)=>ids.indexOf(id)!==i);
+            if(duplicate)throw Error(name+": duplicate id "+duplicate);
+            for(const m of html.matchAll(/(?:src|href)="([^"]+\.(?:js|css|png))(\?[^"]*)?"/g)){
+              const path=m[1];
+              if(/^https?:/.test(path))continue;
+              if(!fs.existsSync(path))throw Error(name+": missing asset "+path);
+            }
+          }
+          console.log("Frontend asset & element checks passed.");
+          JS
