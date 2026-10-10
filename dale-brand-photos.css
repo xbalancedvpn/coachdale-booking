@@ -175,10 +175,10 @@
   position: absolute;
   top: 23px;
   left: clamp(22px, 6vw, 84px);
-  width: clamp(140px, 13vw, 184px) !important;
-  max-width: 184px !important;
+  width: clamp(118px, 11vw, 154px) !important;
+  max-width: 154px !important;
   height: auto !important;
-  max-height: 184px !important;
+  max-height: 154px !important;
   margin: 0 !important;
   object-fit: contain;
   object-position: center;
@@ -214,11 +214,11 @@
     padding-bottom: 48px;
   }
   #home.hero .hero-main-logo {
-    top: 18px;
-    left: 16px;
-    width: clamp(140px, 40vw, 171px) !important;
-    max-width: 171px !important;
-    max-height: 171px !important;
+    top: 12px;
+    left: 12px;
+    width: clamp(88px, 26vw, 108px) !important;
+    max-width: 108px !important;
+    max-height: 108px !important;
     height: auto !important;
     margin: 0 !important;
   }
@@ -228,6 +228,6 @@
     padding-top: 282px !important;
   }
   #home.hero .hero-main-logo {
-    width: 145px !important;
+    width: clamp(88px, 26vw, 96px) !important;
   }
 }
