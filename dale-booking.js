@@ -2,7 +2,7 @@
 "use strict";
 const url="https://mjsoffmcekzhenuyfzud.supabase.co",key="sb_publishable_2I-ZQ7mAxp8mDSftamqgSw_dHTmHZbs";
 const sb=window.supabase?.createClient(url,key);
-const $=id=>document.getElementById(id),hours=[8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+const $=id=>document.getElementById(id),hours=[10,11,12,13,14,15,16,17,18,19,20,21];
 const date=$("daleDate"), slots=$("daleHours"), status=$("daleBookingStatus"),send=$("daleSubmit"),name=$("daleName"),contact=$("daleContact"),players=$("dalePlayers"),goal=$("daleGoal"),court=$("daleCourt"),summary=$("daleBookingSummary");
 let chosen=[],unavailable=new Set(),loading=false;
 const dateKey=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
