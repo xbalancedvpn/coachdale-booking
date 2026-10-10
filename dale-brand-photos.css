@@ -116,7 +116,8 @@
 }
 
 
-/* Public hero: actual action photo, softly washed out to preserve Coach Dale copy contrast. */
+/* Public hero v3: keep Dale's face bright; wash only the text zone.
+   Hero logo is anchored to the top-left and no longer obscures his face. */
 #home.hero {
   position: relative;
   isolation: isolate;
@@ -130,84 +131,103 @@
   display: block;
   width: 100%;
   height: 100%;
-  max-width: none;
   min-height: 100%;
+  max-width: none;
   object-fit: cover;
-  object-position: center 43%;
-  opacity: .78;
-  filter: saturate(.78) contrast(.94);
+  object-position: 56% 36%;
+  opacity: 1 !important;
+  filter: saturate(1.03) contrast(1.035) !important;
   pointer-events: none;
   user-select: none;
 }
+/* Desktop: retain stronger shade on the left where the copy is placed;
+   the face remains clear on the right. */
 #home.hero::before {
   content: "";
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(90deg,
-    rgba(16,47,40,.89) 0%,
-    rgba(16,47,40,.80) 37%,
-    rgba(16,47,40,.45) 73%,
-    rgba(16,47,40,.29) 100%);
   pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(16,47,40,.90) 0%,
+    rgba(16,47,40,.77) 29%,
+    rgba(16,47,40,.37) 61%,
+    rgba(16,47,40,.09) 100%) !important;
 }
 #home.hero::after {
   content: "";
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(0deg,rgba(16,47,40,.66),transparent 47%);
   pointer-events: none;
+  background: linear-gradient(0deg,
+    rgba(16,47,40,.49) 0%,
+    rgba(16,47,40,.22) 30%,
+    transparent 62%) !important;
 }
 #home.hero > .hero-content {
   position: relative;
   z-index: 2;
+  padding-top: clamp(218px, 19vw, 272px);
 }
-.site-header .site-brand {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  line-height: 0;
-  padding: 0;
-}
-.site-header .site-brand img.nav-favicon {
-  display: block;
-  width: 65px !important;
-  height: 65px !important;
-  max-width: none !important;
+/* Main logo is a small corner signature, not a second foreground hero. */
+#home.hero .hero-main-logo {
+  position: absolute;
+  top: 23px;
+  left: clamp(22px, 6vw, 84px);
+  width: clamp(140px, 13vw, 184px) !important;
+  max-width: 184px !important;
+  height: auto !important;
+  max-height: 184px !important;
+  margin: 0 !important;
   object-fit: contain;
-  filter: drop-shadow(0 3px 10px rgba(0,0,0,.24));
+  object-position: center;
+  filter: drop-shadow(0 7px 17px rgba(0,0,0,.45));
 }
+/* Mobile: image itself stays clear; gradient increases only where
+   the heading, paragraph and buttons sit near the bottom. */
 @media (max-width: 780px) {
   #home.hero {
     min-height: 0;
   }
   #home.hero > .hero-bg-photo {
-    object-position: 53% 33%;
-    opacity: .76;
+    object-position: 57% 33%;
+    opacity: 1 !important;
+    filter: saturate(1.07) contrast(1.04) !important;
   }
   #home.hero::before {
     background: linear-gradient(180deg,
-      rgba(16,47,40,.20) 0%,
-      rgba(16,47,40,.50) 34%,
-      rgba(16,47,40,.79) 66%,
-      rgba(16,47,40,.92) 100%);
+      rgba(16,47,40,.07) 0%,
+      rgba(16,47,40,.11) 23%,
+      rgba(16,47,40,.32) 38%,
+      rgba(16,47,40,.64) 52%,
+      rgba(16,47,40,.73) 72%,
+      rgba(16,47,40,.84) 100%) !important;
   }
   #home.hero::after {
-    background: linear-gradient(90deg,rgba(16,47,40,.28),rgba(16,47,40,.06));
+    background: linear-gradient(90deg,
+      rgba(16,47,40,.16),
+      rgba(16,47,40,.02) 78%) !important;
   }
   #home.hero > .hero-content {
-    padding-top: 62px;
+    padding-top: clamp(280px, 77vw, 350px) !important;
+    padding-bottom: 48px;
   }
-  .site-header .site-brand img.nav-favicon {
-    width: 54px !important;
-    height: 54px !important;
+  #home.hero .hero-main-logo {
+    top: 18px;
+    left: 16px;
+    width: clamp(140px, 40vw, 171px) !important;
+    max-width: 171px !important;
+    max-height: 171px !important;
+    height: auto !important;
+    margin: 0 !important;
   }
 }
-@media (max-width: 390px) {
-  .site-header .site-brand img.nav-favicon {
-    width: 49px !important;
-    height: 49px !important;
+@media (max-width: 380px) {
+  #home.hero > .hero-content {
+    padding-top: 282px !important;
+  }
+  #home.hero .hero-main-logo {
+    width: 145px !important;
   }
 }
