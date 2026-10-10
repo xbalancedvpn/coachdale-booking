@@ -1,7 +1,188 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#173F35"><title>Coach Dale | Admin</title><link rel="icon" type="image/png" href="assets/branding/coach-dale-favicon.png?v=1"><link rel="apple-touch-icon" href="assets/branding/coach-dale-favicon.png?v=1"><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#102F28;color:#F5F1E8;margin:0}header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 5vw;border-bottom:1px solid #416E59}header a{color:#BD8D64;text-decoration:none}.wrap{padding:35px 5vw;max-width:1200px;margin:auto}h1{font-size:clamp(32px,5vw,60px);margin:12px 0 25px}.login{margin:55px auto;max-width:440px;background:#173F35;padding:30px;border-radius:20px;border:1px solid #456A59}label{display:grid;gap:7px;margin-bottom:16px;font-weight:bold;font-size:13px}input{width:100%;padding:13px;border-radius:8px;background:#F5F1E8;border:0;color:#102F28;font:inherit}button{padding:12px 17px;background:#BD8D64;border:0;border-radius:8px;color:#122D26;font-weight:800;cursor:pointer;margin:5px 8px 5px 0}.admin-card{background:#F5F1E8;color:#202A2B;padding:20px;border-radius:15px;margin:13px 0}.admin-card h3{margin-top:0}.admin-card p{line-height:1.5}.locks{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}.locks>div{background:#1F4F40;padding:12px;border-radius:8px;font-size:13px}#adminNotice{padding:10px 0;min-height:34px}section{margin:35px 0}</style><style id="dale-admin-branding">header .dale-admin-brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}.dale-admin-icon{height:47px;width:47px;object-fit:contain;flex-shrink:0}.dale-admin-wordmark{display:block;width:clamp(135px,21vw,230px);height:auto;object-fit:contain}.dale-admin-login-logo{display:block;width:min(210px,72%);height:auto;margin:0 auto 12px}.login{text-align:center}.login form{text-align:left}.login h1{font-size:clamp(26px,4vw,35px);margin:9px 0 23px}@media(max-width:480px){header{gap:12px;padding:14px 17px}.dale-admin-icon{width:35px;height:35px}header .dale-admin-wordmark{width:138px}header>a:last-child{font-size:12px;white-space:nowrap}.login{margin:25px auto}}</style><link rel="stylesheet" href="dale-admin-phase2.css?v=1"></head><body><header><a class="dale-admin-brand" href="./" aria-label="Coach Dale public website"><img class="dale-admin-icon" src="assets/branding/coach-dale-favicon.png" width="1254" height="1254" alt=""><img class="dale-admin-wordmark" src="assets/branding/coach-dale-wordmark.png" width="2172" height="724" alt="Coach Dale · Dale Cuevas"></a><a href="./">← Public Website</a></header><main class="wrap"><div id="adminNotice" role="status" aria-live="polite"></div><section class="login" id="daleLogin"><img class="dale-admin-login-logo" src="assets/branding/coach-dale-main-logo.png" width="1254" height="1254" alt="Coach Dale coaching logo"><h1>COACH LOGIN</h1><form id="loginForm"><label>Email<input type="email" id="loginEmail" required autocomplete="email"></label><label>Password<input type="password" id="loginPassword" required autocomplete="current-password"></label><button type="submit">SIGN IN</button></form></section><section id="daleDashboard" hidden>
-<div class="admin-heading"><div><div class="admin-kicker">Coach Dale · Control Center</div><h1>BOOKING MANAGEMENT</h1><p>Manage requests, confirm sessions, and reserve coaching hours.</p></div><div class="admin-toolbar"><button type="button" class="admin-secondary" id="refreshAdmin">Refresh</button><button type="button" id="logoutBtn">Logout</button></div></div>
-<div class="admin-stats"><div class="admin-stat"><strong id="statPending">0</strong><span>Pending requests</span></div><div class="admin-stat"><strong id="statConfirmed">0</strong><span>Upcoming confirmed</span></div><div class="admin-stat"><strong id="statBlocked">0</strong><span>Manually blocked hours</span></div><div class="admin-stat"><strong id="statPast">0</strong><span>Past bookings</span></div></div>
-<div class="admin-grid">
-<section class="admin-panel"><div class="admin-panel-head"><div><h2>Bookings &amp; Requests</h2><p class="admin-panel-sub">Three bookings displayed by default. Search or filter for more.</p></div></div><div class="admin-filterbar"><label class="admin-control">Booking status<select id="requestFilter"><option value="active">Active bookings</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="past">Past</option><option value="closed">Cancelled / Rejected</option></select></label><label class="admin-control">Search client<input id="requestSearch" type="search" placeholder="Name, contact, or court" autocomplete="off"></label></div><div id="requestList" aria-live="polite"></div><button id="showAllRequests" type="button" class="admin-show-all" hidden>Show all</button></section>
-<div><section class="admin-panel"><h2>Block Coaching Hours</h2><p class="admin-panel-sub">Reserve unavailable time from 10:00 AM to 10:00 PM. Confirmed bookings remain protected.</p><form id="blockForm"><label class="admin-control">Select date<input type="date" id="blockDate" required></label><div class="admin-two"><label class="admin-control">Start time<select id="blockStart" required></select></label><label class="admin-control">End time<select id="blockEnd" required></select></label></div><label class="admin-control">Reason (optional)<input id="blockNote" type="text" maxlength="200" placeholder="Private session, unavailable…"></label><button id="blockSubmit" type="submit">BLOCK SELECTED HOURS</button><p id="blockStatus" role="status" aria-live="polite"></p></form><h3>Reserved &amp; Unavailable Hours</h3><p class="admin-panel-sub">Select a date above to view current blocks. Only manually blocked hours can be unblocked here.</p><div id="lockedHours" class="admin-locked-list"></div></section></div>
-</div><section class="admin-panel" id="opsPanel"><h2>Coaching Operations</h2><p class="admin-panel-sub">Manual booking, payments, client history and income.</p><div class="admin-toolbar"><button type="button" id="opsManual">New Manual Booking</button><button type="button" id="opsClients">Clients & Progress</button><button type="button" id="opsReports">Finances</button><button type="button" id="opsProgress">Add Progress Assessment</button><button type="button" id="opsWeekly">Weekly Schedule PNG</button></div><div id="opsOutput" aria-live="polite"></div></section><dialog id="opsDialog" style="width:min(650px,96vw);max-height:88vh;border:1px solid #BD8D64;border-radius:16px;background:#173F35;color:#F5F1E8;padding:25px"><div style="display:flex;justify-content:space-between;gap:12px"><h2 id="opsTitle" style="margin-top:0">Manage</h2><button type="button" id="opsClose">Close</button></div><form id="opsForm" style="display:grid;gap:12px"></form><p id="opsStatus" role="status"></p></dialog></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/dist/umd/supabase.js"></script><script>window.DALE_SUPABASE_KEY="sb_publishable_2I-ZQ7mAxp8mDSftamqgSw_dHTmHZbs"</script><script src="dale-admin.js?v=3"></script><script src="dale-ops.js?v=2"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102F28">
+<meta name="description" content="Coach Dale Cuevas private coaching management dashboard.">
+<title>Coach Dale | Coaching Operations</title>
+<link rel="icon" type="image/png" href="assets/branding/coach-dale-favicon.png?v=1">
+<link rel="apple-touch-icon" href="assets/branding/coach-dale-favicon.png?v=1">
+<link rel="stylesheet" href="dale-kyle-admin.css?v=1">
+</head><body>
+<div id="adminNotice" class="da-status-toast" role="status" aria-live="polite"></div>
+<section id="daleLogin" class="auth">
+ <div class="auth-card">
+  <div class="auth-brand-stage">
+   <img class="auth-logo" src="assets/branding/coach-dale-main-logo.png" width="1254" height="1254" alt="Coach Dale Cuevas">
+   <div class="auth-admin-label"><span></span><b>COACH ADMIN</b><span></span></div>
+  </div>
+  <h1>Manage your coaching.</h1>
+  <p>Sign in with your Coach Dale admin account.</p>
+  <form id="loginForm">
+   <label>Email<input id="loginEmail" name="email" type="email" autocomplete="email" required></label>
+   <label>Password<input id="loginPassword" name="password" type="password" autocomplete="current-password" required></label>
+   <button class="primary" type="submit">SIGN IN</button>
+  </form>
+  <a class="back" href="./">← Back to public site</a>
+ </div>
+</section>
+<section id="daleDashboard" hidden>
+ <header class="top">
+  <div class="admin-head-actions">
+   <button id="adminMenuBtn" class="admin-menu-btn" type="button" aria-label="Open admin menu" aria-expanded="false">☰</button>
+   <a class="admin-top-brand" href="./" aria-label="Coach Dale home"><img src="assets/branding/coach-dale-favicon.png" width="1254" height="1254" alt="Coach Dale logo"></a>
+  </div>
+  <div class="admin-head-actions">
+   <button id="shareBookingLinkBtn" class="admin-quick-btn" type="button" title="Copy public booking link" aria-label="Copy booking link">🔗</button>
+   <button id="quickWeeklyScheduleBtn" class="admin-quick-btn" type="button" title="Weekly availability PNG" aria-label="Weekly availability">🗓️</button>
+   <div class="admin-notify-wrap" id="adminNotifyWrap">
+    <button id="adminNotifyBtn" class="admin-notify-btn" type="button" title="Booking notifications" aria-label="Booking notifications" aria-expanded="false">🔔<span id="adminNotifyBadge" class="admin-notify-badge hidden-badge">0</span></button>
+    <div id="adminNotifyPanel" class="admin-notify-panel">
+     <div id="adminNotifyList" class="notify-empty">No new booking requests.</div>
+    </div>
+   </div>
+   <span id="adminEmail" class="admin-email"></span>
+   <button id="logoutBtn" class="ghost" type="button">SIGN OUT</button>
+  </div>
+ </header>
+ <div id="adminNavBackdrop" class="admin-nav-backdrop"></div>
+ <aside id="adminNav" class="admin-nav" aria-label="Admin navigation">
+   <h3>ADMIN MENU</h3>
+   <a href="#dashboardSection">Dashboard</a>
+   <div class="admin-nav-group">Operations</div>
+   <a href="#todaySection">Today's Sessions</a>
+   <a href="#inquiriesSection">Booking Inquiries</a>
+   <a href="#bookingsSection">Upcoming Bookings</a>
+   <a href="#pastSessionsSection">Past Sessions</a>
+   <a href="#bookingsSection" id="adminManualBookingLink">+ Manual Booking</a>
+   <a href="#paymentFollowupSection">Payment Follow-up</a>
+   <a href="#completedSessionsSection">Completed Sessions</a>
+   <a href="#scheduleSection">Schedule</a>
+   <div class="admin-nav-group">Clients</div>
+   <a href="#clientsSection">Client Profiles</a>
+   <div class="admin-nav-group">Finances</div>
+   <a href="#reportsSection">Income & Collections</a>
+   <div class="admin-nav-group">Public Content</div>
+   <a href="#weeklyScheduleSection">Weekly Availability</a>
+   <a href="#mediaSection">Carousel & Testimonials</a>
+ </aside>
+ <main class="wrap">
+  <section class="hero" id="dashboardSection">
+   <div><span class="eyebrow">DASHBOARD</span><h1>Coach Dale Operations</h1><p>Review requests, manage sessions, track income, and follow every player's progress.</p></div>
+   <button id="refreshAdmin" class="primary" type="button">REFRESH</button>
+  </section>
+  <section id="attentionPanel" class="panel attention-panel">
+   <a href="#inquiriesSection" class="attention-card"><div><span class="eyebrow">NEW INQUIRIES</span><small>Booking requests waiting for approval</small></div><strong id="attentionInquiries">0</strong></a>
+   <a href="#paymentFollowupSection" class="attention-card"><div><span class="eyebrow">PAYMENT FOLLOW-UP</span><small>Sessions with remaining balances</small></div><strong id="attentionCompletedDue">0</strong></a>
+  </section>
+  <section class="metrics" aria-label="Coaching overview">
+   <article><span>New inquiries</span><strong id="metricInquiries">0</strong></article>
+   <article><span>Upcoming bookings</span><strong id="metricBookings">0</strong></article>
+   <article><span>Sessions today</span><strong id="metricToday">0</strong></article>
+   <article><span>Active clients</span><strong id="metricClients">0</strong></article>
+   <article><span>Balance due</span><strong id="metricBalance">₱0</strong></article>
+   <article><span>Blocked today</span><strong id="metricBlocked">0</strong></article>
+  </section>
+  <section class="admin-flow-heading"><span class="eyebrow">OPERATIONS</span><h2>Bookings & daily coaching</h2><p>Start with today's sessions, then review inquiries and upcoming bookings.</p></section>
+  <section class="panel" id="todaySection">
+   <div class="panel-head"><div><span class="eyebrow">TODAY</span><h2>Today's sessions</h2></div></div>
+   <div id="todayBookings" class="cards da-active-list"><div class="empty">Loading today's sessions…</div></div>
+  </section>
+  <section class="panel" id="inquiriesSection">
+   <div class="panel-head"><div><span class="eyebrow">ACTION NEEDED</span><h2>Booking inquiries</h2></div><span class="da-list-count" id="inquiriesCount">0</span></div>
+   <div id="inquiries" class="cards da-active-list"><div class="empty">Loading inquiries…</div></div>
+  </section>
+  <section class="panel" id="bookingsSection">
+   <div class="panel-head">
+    <div><span class="eyebrow">UPCOMING</span><h2>Upcoming Bookings</h2><p class="panel-note">Confirmed future sessions only. Today's sessions appear above.</p></div>
+    <div class="da-quick"><button id="opsManual" class="primary" type="button">+ MANUAL BOOKING</button></div>
+   </div>
+   <div id="bookings" class="cards compact-list da-active-list"><div class="empty">No upcoming bookings yet.</div></div>
+   <div class="list-toggle-row"><button id="toggleUpcomingBookings" class="kyle-list-toggle" type="button" hidden>SHOW ALL</button></div>
+  </section>
+  <section class="panel past-sessions-panel" id="pastSessionsSection">
+   <div class="panel-head"><div><span class="eyebrow">PAST · NEEDS COMPLETION</span><h2>Past Sessions</h2><p class="panel-note">Sessions that have passed but still need closing.</p></div><span id="pastSessionsCount" class="da-list-count">0</span></div>
+   <div id="pastSessionsList" class="cards compact-list da-active-list"><div class="empty">No past sessions need closing.</div></div>
+   <div class="list-toggle-row"><button id="togglePastSessions" class="kyle-list-toggle" type="button" hidden>SHOW ALL</button></div>
+  </section>
+  <section class="panel payment-followup-panel" id="paymentFollowupSection">
+   <div class="panel-head"><div><span class="eyebrow">PAYMENT FOLLOW-UP</span><h2>Completed Sessions with Balance</h2><p class="panel-note">Track completed sessions that still have an outstanding payment.</p></div><span id="paymentFollowupCount" class="da-list-count">0</span></div>
+   <div id="paymentFollowupList" class="cards compact-list da-active-list"><div class="empty">No completed sessions awaiting payment.</div></div>
+   <div class="list-toggle-row"><button id="togglePaymentFollowups" class="kyle-list-toggle" type="button" hidden>SHOW ALL</button></div>
+  </section>
+  <section class="panel completed-sessions-panel" id="completedSessionsSection">
+   <div class="panel-head"><div><span class="eyebrow">COMPLETED</span><h2>Completed Sessions</h2><p class="panel-note">Fully settled coaching sessions.</p></div><span id="completedSessionsCount" class="da-list-count">0</span></div>
+   <div id="completedSessionsList" class="cards compact-list da-active-list"><div class="empty">No completed sessions yet.</div></div>
+   <div class="list-toggle-row"><button id="toggleCompletedSessions" class="kyle-list-toggle" type="button" hidden>SHOW ALL</button></div>
+  </section>
+  <section class="panel" id="scheduleSection">
+   <div class="panel-head"><div><span class="eyebrow">SCHEDULE</span><h2>Block / Unblock Hours</h2><p class="panel-note">10:00 AM – 10:00 PM · Choose a date and manage availability.</p></div></div>
+   <label class="date-label">Selected date<input id="blockDate" type="date" required></label>
+   <div id="scheduleSlots" class="slots"><div class="empty">Loading availability…</div></div>
+   <div class="da-schedule-detail">
+    <div class="grid" style="align-items:start">
+     <div><h3>Block consecutive hours</h3>
+      <form id="blockForm">
+       <div class="admin-two">
+        <label class="admin-control">From<select id="blockStart" required></select></label>
+        <label class="admin-control">To<select id="blockEnd" required></select></label>
+       </div>
+       <label class="admin-control">Reason (optional)<input id="blockNote" type="text" maxlength="200" placeholder="Tournament, rest day, private session…"></label>
+       <button id="blockSubmit" class="primary" type="submit">BLOCK SELECTED HOURS</button>
+       <p id="blockStatus" role="status" aria-live="polite"></p>
+      </form>
+     </div>
+     <div><h3>Unavailable on this date</h3><div id="lockedHours" class="admin-locked-list"></div></div>
+    </div>
+   </div>
+  </section>
+  <section class="admin-flow-heading"><span class="eyebrow">CLIENTS</span><h2>Players & Coaching Progress</h2><p>Client profiles, coaching history, and training assessments.</p></section>
+  <section class="panel" id="clientsSection">
+   <div class="panel-head"><div><span class="eyebrow">CLIENT PROFILES</span><h2>Coaching History & Progress</h2><p class="panel-note">Save player details and record skill development.</p></div><div class="da-quick"><button id="opsClients" class="primary" type="button">+ ADD CLIENT</button><button id="opsProgress" class="ghost" type="button">NEW ASSESSMENT</button></div></div>
+   <div class="admin-panel-controls"><input id="clientSearch" type="search" placeholder="Search player name"></div>
+   <div id="clientsList" class="client-grid"><div class="empty">No client profiles yet.</div></div>
+  </section>
+  <section class="admin-flow-heading"><span class="eyebrow">FINANCES</span><h2>Income & Collections</h2><p>Collected GCash and Cash payments, session fees, and outstanding balances.</p></section>
+  <section class="panel" id="reportsSection">
+   <div class="panel-head"><div><span class="eyebrow">INCOME REPORT</span><h2>Income & Collection</h2><p class="panel-note">Based on Coach Dale's recorded booking and payment data.</p></div><div class="da-quick"><button id="opsReports" class="primary" type="button">GENERATE REPORT / CSV</button></div></div>
+   <div class="admin-panel-controls"><label class="admin-control">Period<select id="reportPeriod"><option value="this">This month</option><option value="last">Last month</option><option value="all">All time</option></select></label></div>
+   <div class="report-metrics"><article><span>Confirmed session fees</span><strong id="reportConfirmed">₱0</strong></article><article><span>Total collected</span><strong id="reportCollected">₱0</strong></article><article><span>Earned income</span><strong id="reportEarned">₱0</strong></article><article><span>Outstanding</span><strong id="reportOutstanding">₱0</strong></article></div>
+   <div id="reportBreakdown" class="panel-note" style="margin:14px 0"></div>
+   <div style="overflow-x:auto"><table class="report-table"><thead><tr><th>Date</th><th>Client</th><th>Status</th><th>Amount</th><th>Paid</th><th>Balance</th></tr></thead><tbody id="reportRows"></tbody></table></div>
+  </section>
+  <section class="admin-flow-heading"><span class="eyebrow">PUBLIC CONTENT</span><h2>What Clients See</h2><p>Weekly availability, photos, and testimonials for the public website.</p></section>
+  <section class="panel" id="weeklyScheduleSection">
+   <div class="panel-head"><div><span class="eyebrow">WEEKLY AVAILABILITY</span><h2>Share Your Schedule</h2><p class="panel-note">Generate a weekly availability card in PNG format.</p></div><button id="opsWeekly" class="primary" type="button">GENERATE WEEKLY PNG</button></div>
+   <div id="weeklySummary" class="panel-note">Choose a starting date when generating the card.</div>
+  </section>
+  <section class="panel" id="mediaSection">
+   <div class="panel-head"><div><span class="eyebrow">PUBLIC GALLERY & REVIEWS</span><h2>Photos & Testimonials</h2></div></div>
+   <p class="panel-note">Manage training photos and approved client testimonials. The final coach photos will replace placeholders.</p>
+   <div id="mediaManagement"><div class="empty">Media manager loading…</div></div>
+  </section>
+  <div id="daleLegacy" hidden>
+   <span id="statPending">0</span><span id="statConfirmed">0</span><span id="statBlocked">0</span><span id="statPast">0</span>
+   <select id="requestFilter"><option value="active">Active</option></select><input id="requestSearch"><div id="requestList"></div><button id="showAllRequests" type="button" hidden></button>
+   <div id="opsOutput"></div>
+  </div>
+ </main>
+ <nav class="da-footer-nav" aria-label="Quick dashboard navigation">
+   <a href="#dashboardSection"><span>▦</span>Dashboard</a>
+   <a href="#inquiriesSection"><span>🔔</span>Requests</a>
+   <a href="#reportsSection"><span>₱</span>Finances</a>
+   <button id="footerMenuBtn" type="button"><span>☰</span>Menu</button>
+ </nav>
+ <dialog id="opsDialog">
+  <div class="dialog-card" style="max-height:87vh;overflow:auto">
+   <button id="opsClose" class="x" type="button" aria-label="Close">×</button>
+   <span class="eyebrow">COACH DALE OPERATIONS</span><h2 id="opsTitle">Manage Booking</h2>
+   <form id="opsForm" style="display:grid;gap:12px"></form><p id="opsStatus" role="status" aria-live="polite"></p>
+  </div>
+ </dialog>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/dist/umd/supabase.js"></script>
+<script>window.DALE_SUPABASE_KEY="sb_publishable_2I-ZQ7mAxp8mDSftamqgSw_dHTmHZbs"</script>
+<script src="dale-ops.js?v=3"></script>
+<script src="dale-kyle-admin.js?v=1"></script>
+<script src="dale-admin.js?v=5"></script>
+</body></html>
