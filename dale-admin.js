@@ -8,7 +8,7 @@ const time=h=>(h%12||12)+":00 "+(h<12?"AM":"PM");
 const phpHour=()=>Number(new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Manila",hour:"2-digit",hourCycle:"h23"}).format(new Date()));
 const peso=n=>"₱"+Number(n).toLocaleString("en-PH");
 const el=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x};
-function msg(s,bad=false){notice.textContent=s;notice.style.color=bad?"#FFA39A":"#E7C199"}
+function msg(s,bad=false){notice.textContent=s;notice.style.color=bad?"#FFA39A":"#E7C199";notice.classList.remove("show");void notice.offsetWidth;notice.classList.add("show")}
 function enableForm(flag){for(const b of document.querySelectorAll("#daleDashboard button"))b.disabled=!flag;}
 function sameDateSlot(d,h){return d===today()&&h<=phpHour();}
 function renderStats(){const active=bookings.filter(x=>x.status==="confirmed"&&x.session_date>=today());const pending=bookings.filter(x=>x.status==="pending"&&x.session_date>=today());const past=bookings.filter(x=>x.session_date<today());const stats=[pending.length,active.length,locks.filter(x=>x.reason==="blocked"&&x.session_date>=today()).length,past.length];["statPending","statConfirmed","statBlocked","statPast"].forEach((id,i)=>$(id).textContent=stats[i]);}
