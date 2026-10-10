@@ -1,0 +1,134 @@
+/* Coach Dale — Kyle-format weekly availability preview and controls.
+   Alpine Elite colors, exact original coach logo PNGs in the canvas. */
+#daleDashboard #weeklyScheduleSection .dale-weekly-controls{
+ display:grid;grid-template-columns:minmax(230px,1.2fr) minmax(250px,1.3fr) auto;
+ align-items:end;gap:13px;padding:18px;margin:17px 0 12px;
+ border:1px solid #567969;border-radius:15px;
+ background:linear-gradient(135deg,#1C4A39,#14372D);
+}
+#daleDashboard #weeklyScheduleSection .dale-week-field{
+ min-width:0;display:flex;flex-direction:column;gap:7px;
+ font:800 11px/1.5 "DM Sans",Arial,sans-serif;
+ color:#C7D9C9;
+}
+#daleDashboard #weeklyScheduleSection .dale-week-field>input{
+ height:52px;width:100%;border:1px solid #C5CEC0;border-radius:10px;
+ background:#F5F1E8;color:#1C3D2F;padding:0 14px;
+ font:700 14px/1.3 "DM Sans",Arial,sans-serif;
+}
+#daleDashboard .dale-week-shift{
+ display:flex;gap:7px;flex-wrap:nowrap;align-items:center;
+}
+#daleDashboard .dale-week-shift button{
+ height:52px;min-width:0;flex:1;margin:0;padding:8px 10px!important;
+ white-space:nowrap;border:1px solid #7A927F!important;
+ border-radius:10px;background:#224F3C!important;color:#F5F1E8!important;
+ font:800 11px/1.2 "DM Sans",Arial,sans-serif!important;cursor:pointer;
+}
+#daleDashboard .dale-week-shift button:hover{
+ border-color:#BD8D64!important;background:#3A5B42!important;
+}
+#daleDashboard #generateWeeklySchedule{
+ height:52px;min-width:182px;margin:0!important;padding:10px 17px!important;
+ color:#102F28!important;background:#BD8D64!important;border:0!important;
+ border-radius:10px!important;
+ font:800 12px/1.2 "Plus Jakarta Sans",sans-serif!important;
+ letter-spacing:.01em;white-space:nowrap;
+}
+#daleDashboard #generateWeeklySchedule:hover{background:#D4A980!important}
+#daleDashboard #generateWeeklySchedule:disabled{opacity:.62;cursor:wait}
+#daleDashboard #weeklyRange{
+ margin:12px 0 5px;font:700 16px/1.5 "Plus Jakarta Sans",Arial,sans-serif;
+ color:#F2E8D8;
+}
+#daleDashboard #weeklySummary{
+ margin:6px 0 10px;color:#C9DBC9;
+ font:600 12px/1.6 "DM Sans",Arial,sans-serif;
+}
+#daleDashboard #weeklyToast{
+ color:#EBD0A9;font:700 12px/1.5 "DM Sans",sans-serif;
+ margin:8px 0;padding:9px 12px;
+ border-radius:9px;background:#2C523E;border:1px solid #63806A;
+}
+#daleDashboard #weeklyToast[hidden]{display:none!important}
+#daleDashboard #weeklyToast.is-error{border-color:#D18C73;color:#FFD1C2}
+dialog#weeklyScheduleDialog{
+ box-sizing:border-box;max-width:calc(100vw - 18px)!important;
+ width:min(1320px,calc(100vw - 18px))!important;
+ max-height:94dvh!important;margin:auto!important;padding:0!important;
+ border:1px solid #B28E69!important;border-radius:19px!important;
+ background:#102F28!important;color:#F5F1E8!important;
+ overflow-y:auto!important;box-shadow:0 35px 130px rgba(0,0,0,.7)!important;
+}
+dialog#weeklyScheduleDialog::backdrop{
+ background:rgba(6,27,20,.82);backdrop-filter:blur(5px);
+}
+#weeklyScheduleDialog .dale-weekly-dialog-content{
+ padding:20px;box-sizing:border-box;
+}
+#weeklyScheduleDialog .dale-weekly-dialog-head{
+ display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+ margin-bottom:13px;
+}
+#weeklyScheduleDialog .dale-weekly-dialog-head .eyebrow{
+ display:block;color:#BD8D64;font-size:10px;margin-bottom:5px;
+}
+#weeklyScheduleDialog .dale-weekly-dialog-head h2{
+ margin:0;color:#F5F1E8;
+ font:800 clamp(20px,3vw,30px)/1.2 "Plus Jakarta Sans",sans-serif!important;
+ letter-spacing:-.04em!important;font-style:normal!important;text-transform:none!important;
+}
+#weeklyScheduleDialog #closeWeeklySchedule{
+ border:1px solid #597A65;border-radius:11px;
+ padding:0!important;min-width:42px;height:42px;margin:0!important;
+ font:26px/1 Arial,sans-serif;color:#F5F1E8;background:#1E4A38;cursor:pointer;
+}
+#weeklyScheduleDialog #closeWeeklySchedule:hover{
+ background:#BD8D64;color:#102F28;border-color:#BD8D64;
+}
+#weeklyScheduleCanvas{
+ display:block;width:100%!important;height:auto!important;max-width:100%;
+ background:#102F28;border:1px solid #547B64;border-radius:10px;
+ object-fit:contain;
+}
+#weeklyScheduleDialog .dale-weekly-dialog-actions{
+ display:flex;align-items:center;justify-content:flex-end;gap:11px;flex-wrap:wrap;
+ padding-top:17px;
+}
+#weeklyScheduleDialog .dale-weekly-dialog-actions button{
+ margin:0!important;min-height:47px!important;
+ padding:12px 18px!important;border-radius:9px!important;
+ border:1px solid #72917A!important;cursor:pointer;
+ font:800 12px/1.2 "DM Sans",sans-serif!important;
+}
+#weeklyScheduleDialog #saveWeeklySchedule{
+ background:#BD8D64!important;color:#102F28!important;border-color:#BD8D64!important;
+}
+#weeklyScheduleDialog #shareWeeklySchedule{
+ background:#234B39!important;color:#F5F1E8!important;
+}
+#weeklyScheduleDialog #closeWeeklyScheduleBottom{
+ background:transparent!important;color:#CADBCC!important;
+}
+#weeklyScheduleDialog .dale-weekly-privacy{
+ color:#B0C9B5;font:600 11px/1.6 "DM Sans",sans-serif;
+ margin:10px 0 0;
+}
+@media(max-width:1100px){
+ #daleDashboard #weeklyScheduleSection .dale-weekly-controls{grid-template-columns:1fr 1fr}
+ #daleDashboard #generateWeeklySchedule{grid-column:1/-1;width:100%}
+}
+@media(max-width:700px){
+ #daleDashboard #weeklyScheduleSection .dale-weekly-controls{
+  display:flex;flex-direction:column;align-items:stretch;padding:14px;gap:13px;
+ }
+ #daleDashboard .dale-week-shift{gap:5px;width:100%}
+ #daleDashboard .dale-week-shift button{height:46px;padding:6px!important;font-size:10px!important}
+ #daleDashboard #generateWeeklySchedule{min-width:0;width:100%}
+ dialog#weeklyScheduleDialog{width:calc(100vw - 10px)!important;max-width:calc(100vw - 10px)!important}
+ #weeklyScheduleDialog .dale-weekly-dialog-content{padding:11px}
+ #weeklyScheduleDialog .dale-weekly-dialog-head h2{font-size:20px!important}
+ #weeklyScheduleDialog .dale-weekly-dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+ #weeklyScheduleDialog .dale-weekly-dialog-actions button{min-width:0!important;padding:10px 6px!important}
+ #weeklyScheduleDialog #saveWeeklySchedule{grid-column:1/-1}
+}
