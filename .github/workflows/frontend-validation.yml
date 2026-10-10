@@ -29,12 +29,26 @@ jobs:
             for(const id of required)if(!ids.includes(id))throw Error(name+": missing "+id);
             const duplicate=ids.find((id,i)=>ids.indexOf(id)!==i);
             if(duplicate)throw Error(name+": duplicate id "+duplicate);
-            for(const m of html.matchAll(/(?:src|href)="([^"]+\.(?:js|css|png))(\?[^"]*)?"/g)){
+            for(const m of html.matchAll(/(?:src|href)="([^"]+\.(?:js|css|png|jpe?g))(\?[^"]*)?"/g)){
               const path=m[1];
               if(/^https?:/.test(path))continue;
               if(!fs.existsSync(path))throw Error(name+": missing asset "+path);
             }
           }
+          const portrait="assets/branding/coach-dale-profile.jpg";
+          const dashboard="assets/branding/coach-dale-dashboard-bg.jpg";
+          const publicPage=fs.readFileSync("index.html","utf8");
+          const adminPage=fs.readFileSync("admin.html","utf8");
+          const photoStyles=fs.readFileSync("dale-brand-photos.css","utf8");
+          for(const asset of [portrait,dashboard]){
+            if(!fs.existsSync(asset)||fs.statSync(asset).size<1000)throw Error("Missing original JPG photo: "+asset);
+          }
+          if(!publicPage.includes('src="'+portrait+'"'))throw Error("Coach profile must reference the portrait JPG.");
+          if(!adminPage.includes("dale-brand-photos.css"))throw Error("Admin photo styling is not loaded.");
+          if(!publicPage.includes("dale-brand-photos.css"))throw Error("Public photo styling is not loaded.");
+          if(!photoStyles.includes(dashboard))throw Error("Dashboard washup must reference action JPG.");
+          if(!photoStyles.includes("#coach .coach-photo img"))throw Error("Profile photograph must be full quality.");
+          console.log("Coach Dale JPG photo placements verified.");
           console.log("Frontend asset & element checks passed.");
           JS
       - name: Install calendar testing library
