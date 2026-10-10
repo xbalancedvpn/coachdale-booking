@@ -1,83 +1,185 @@
-/* Coach Dale branded custom date picker */
-.dale-date-input{
-  cursor:pointer!important;
-  caret-color:transparent!important;
-  padding-right:44px!important;
-  background-image:linear-gradient(45deg,transparent 50%,#BD8D64 50%),linear-gradient(135deg,#BD8D64 50%,transparent 50%)!important;
-  background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%!important;
-  background-size:5px 5px,5px 5px!important;
-  background-repeat:no-repeat!important;
+/* Alpine Elite calendar - bespoke Coach Dale schedule UI */
+.dale-date-control{
+  position:relative;isolation:isolate;display:flex;align-items:center;
+  min-width:0;width:100%;height:54px;max-width:100%;
 }
-.dale-date-dialog{
-  width:min(440px,calc(100% - 24px));
-  max-width:440px;
-  border:0;
-  padding:0;
-  border-radius:22px;
-  background:transparent;
-  color:#fff;
-  overflow:visible;
+.dale-date-control > input.dale-date-input{
+  display:block;width:100%!important;min-width:0!important;height:54px!important;
+  padding:0 92px 0 49px!important;margin:0!important;
+  border-radius:12px!important;border:1.5px solid #9DAE9F!important;
+  background:#FAF9F4!important;color:#193E32!important;
+  font:700 14px/1.3 "DM Sans","Segoe UI",Arial,sans-serif!important;
+  letter-spacing:.01em!important;cursor:pointer!important;
+  box-shadow:0 4px 16px rgba(12,47,35,.06)!important;
+  appearance:none!important;-webkit-appearance:none!important;
+  text-overflow:ellipsis;
 }
-.dale-date-dialog::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(5px)}
-.dale-date-card{
-  position:relative;
-  padding:20px;
-  border:1px solid rgba(189,141,100,.34);
-  border-radius:22px;
-  background:
-    radial-gradient(circle at 12% 0%,rgba(189,141,100,.16),transparent 34%),
-    linear-gradient(145deg,#194235,#102F28 72%);
-  box-shadow:0 30px 90px rgba(0,0,0,.65);
-  font-family:Arial,Helvetica,sans-serif;
+.dale-date-control > input.dale-date-input::placeholder{
+  color:#66796D;opacity:1;
 }
-.dale-date-card:before{
-  content:"";
-  position:absolute;
-  left:18px;right:18px;top:0;height:3px;
-  border-radius:0 0 999px 999px;
-  background:linear-gradient(90deg,#BD8D64,#D6AA82);
+.dale-date-control:focus-within > input.dale-date-input,
+.dale-date-control:hover > input.dale-date-input{
+  border-color:#BD8D64!important;box-shadow:0 0 0 3px rgba(189,141,100,.18)!important;
 }
-.dale-date-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.dale-date-brand{display:flex;align-items:center;gap:12px;min-width:0}
-.dale-date-brand img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 8px 16px rgba(0,0,0,.42))}
-.dale-date-brand span{display:block;color:#BD8D64;font-size:10px;font-weight:900;letter-spacing:.17em}
-.dale-date-brand h2{margin:3px 0 0!important;color:#fff!important;font-family:Impact,"Arial Black",sans-serif!important;font-style:italic!important;font-size:27px!important;line-height:1!important;letter-spacing:.01em!important;text-transform:uppercase}
-#daleDateClose{
-  width:38px;height:38px;border:1px solid #343434;border-radius:12px;background:#24513E;color:#fff;font-size:24px;line-height:1;cursor:pointer;
+.dale-date-symbol{
+  pointer-events:none;position:absolute;left:15px;top:50%;
+  transform:translateY(-50%);height:23px;z-index:2;display:grid;
+  place-items:center;color:#376552;
 }
-.dale-date-nav{display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:9px;margin:20px 0 10px}
-.dale-date-nav button{
-  height:40px;border:1px solid #668471;border-radius:11px;background:#194235;color:#fff;font-size:23px;cursor:pointer;
+.dale-date-trigger{
+  position:absolute;right:6px;top:6px;height:42px!important;z-index:3;
+  padding:0 12px!important;margin:0!important;min-width:71px!important;
+  border:0!important;border-radius:9px!important;
+  background:#173F35!important;color:#F5F1E8!important;
+  box-shadow:none!important;letter-spacing:.085em!important;
+  font:800 10px/1 "Plus Jakarta Sans","Segoe UI",sans-serif!important;
+  cursor:pointer!important;transition:background .18s ease,transform .18s ease;
 }
-.dale-date-nav button:hover,#daleDateClose:hover{border-color:#BD8D64;color:#BD8D64}
-.dale-date-nav strong{text-align:center;color:#f4f4f4;font-size:14px;font-weight:900;letter-spacing:.03em}
-.dale-date-weekdays,.dale-date-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-.dale-date-weekdays span{text-align:center;padding:7px 0;color:#898989;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
-.dale-date-grid button,.dale-date-blank{aspect-ratio:1;border-radius:11px}
-.dale-date-grid button{
-  border:1px solid #537963;background:#20483B;color:#f3f3f3;font:800 13px Arial,Helvetica,sans-serif;cursor:pointer;transition:.16s ease;
+.dale-date-trigger:hover,.dale-date-trigger:focus-visible{
+  background:#BD8D64!important;color:#102F28!important;
 }
-.dale-date-grid button:hover:not(:disabled){border-color:#BD8D64;transform:translateY(-1px)}
-.dale-date-grid button.today{box-shadow:inset 0 0 0 2px rgba(189,141,100,.78)}
-.dale-date-grid button.selected{
-  border-color:#BD8D64;
-  background:linear-gradient(135deg,#BD8D64,#D6AA82);
-  color:#102F28;
-  box-shadow:0 8px 20px rgba(189,141,100,.18);
+.dale-date-trigger:focus-visible{outline:3px solid #BD8D64;outline-offset:3px}
+.dale-date-control:has(input:disabled){opacity:.55}
+.dale-date-control:has(input:disabled) .dale-date-trigger{pointer-events:none}
+@media(max-width:370px){
+  .dale-date-control > input.dale-date-input{font-size:12px!important;padding-left:43px!important;padding-right:83px!important}
+  .dale-date-symbol{left:12px}
+  .dale-date-trigger{min-width:65px!important;padding:0 8px!important}
 }
-.dale-date-grid button.disabled{opacity:.22;cursor:not-allowed;transform:none}
-.dale-date-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px;padding-top:14px;border-top:1px solid #242424}
-.dale-date-actions button{
-  min-width:86px;border-radius:11px;padding:10px 13px;font:900 11px Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;
+
+/* Modal is attached to body and uses the browser top layer. */
+dialog.dale-cal-dialog{
+  box-sizing:border-box;
+  width:min(456px,calc(100vw - 22px))!important;
+  max-width:min(456px,calc(100vw - 22px))!important;
+  max-height:min(90dvh,720px)!important;
+  padding:0!important;margin:auto!important;overflow-y:auto!important;
+  border:1px solid #BCAD92!important;border-radius:23px!important;
+  background:#F5F1E8!important;color:#16392F!important;
+  box-shadow:0 30px 100px rgba(4,27,20,.50)!important;
 }
-.dale-date-secondary{border:1px solid #383838;background:#24513E;color:#fff}
-.dale-date-primary{border:1px solid #BD8D64;background:linear-gradient(135deg,#BD8D64,#D6AA82);color:#102F28}
-@media(max-width:480px){
-  .dale-date-card{padding:16px}
-  .dale-date-brand img{width:40px;height:40px}
-  .dale-date-brand h2{font-size:24px!important}
-  .dale-date-weekdays,.dale-date-grid{gap:4px}
-  .dale-date-grid button,.dale-date-blank{border-radius:9px}
+dialog.dale-cal-dialog::backdrop{
+  background:rgba(9,27,22,.73)!important;backdrop-filter:blur(5px);
 }
-.dale-date-dialog .dale-date-card{background:linear-gradient(145deg,#19483A,#102F28 73%);color:#F5F1E8;border-color:#8D7D67}
-.dale-date-dialog .dale-date-head h2{color:#F5F1E8!important}
+.dale-cal-sheet{min-width:0;background:#F5F1E8;color:#183F33;font-family:"DM Sans","Segoe UI",Arial,sans-serif}
+.dale-cal-top{
+  padding:19px 20px 20px;min-height:106px;
+  background:radial-gradient(circle at 100% 0%,rgba(189,141,100,.18),transparent 45%),
+             linear-gradient(130deg,#102F28 0%,#173F35 76%);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  color:#F5F1E8;position:relative;
+}
+.dale-cal-top::after{
+  content:"";position:absolute;bottom:0;left:20px;right:20px;height:1px;
+  background:linear-gradient(90deg,#BD8D64,transparent);
+}
+.dale-cal-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.dale-cal-brand img{width:49px;height:49px;object-fit:contain;flex-shrink:0}
+.dale-cal-brand span{
+  display:block;color:#D9B492;font:800 9px/1.5 "Plus Jakarta Sans",sans-serif;
+  letter-spacing:.15em;
+}
+.dale-cal-brand h2{
+  margin:4px 0 0!important;padding:0!important;color:#F5F1E8!important;
+  font:800 clamp(18px,4.7vw,23px)/1.2 "Plus Jakarta Sans","Segoe UI",sans-serif!important;
+  font-style:normal!important;text-transform:none!important;letter-spacing:-.035em!important;
+}
+.dale-cal-close{
+  flex-shrink:0;width:37px;height:37px;padding:0!important;margin:0!important;
+  border:1px solid #60806E!important;border-radius:11px!important;
+  background:#285344!important;color:#F5F1E8!important;font:26px/1 Arial,sans-serif!important;
+  cursor:pointer;
+}
+.dale-cal-close:hover{background:#BD8D64!important;color:#143E31!important}
+.dale-cal-inner{padding:20px 22px 14px}
+.dale-cal-intro{display:grid;gap:5px;padding:12px 14px;border:1px solid #D8D5C8;border-radius:12px;background:#EEEBE1}
+.dale-cal-intro span{font:800 9px/1.3 "Plus Jakarta Sans",sans-serif;color:#6D8677;letter-spacing:.16em}
+.dale-cal-intro strong{font:800 17px/1.3 "Plus Jakarta Sans",sans-serif;color:#173F35;letter-spacing:-.025em}
+.dale-cal-monthline{
+  display:grid;grid-template-columns:41px 1fr 41px;align-items:center;
+  column-gap:10px;margin:21px 0 15px;
+}
+.dale-cal-monthline strong{
+  text-align:center;color:#163E32;font:800 16px/1.3 "Plus Jakarta Sans",sans-serif;
+  letter-spacing:-.02em;
+}
+.dale-cal-monthline button{
+  padding:0!important;margin:0!important;width:41px;height:41px;
+  border:1px solid #CED7CA!important;border-radius:10px!important;
+  background:#FFFFFF!important;color:#173F35!important;
+  font:26px/1 "DM Sans",sans-serif!important;cursor:pointer;
+}
+.dale-cal-monthline button:hover:not(:disabled){background:#E9DAC7!important;border-color:#BD8D64!important}
+.dale-cal-monthline button:disabled{opacity:.3;cursor:not-allowed}
+.dale-cal-weekdays,.dale-cal-grid{
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;align-items:center;
+}
+.dale-cal-weekdays span{
+  text-align:center;padding:8px 0;color:#738577;
+  font:800 10px/1 "Plus Jakarta Sans",sans-serif;letter-spacing:.025em;
+}
+.dale-cal-grid{min-height:215px}
+.dale-cal-grid .dale-cal-blank{width:100%;aspect-ratio:1}
+.dale-cal-grid .dale-cal-day{
+  width:100%;aspect-ratio:1;min-width:0;min-height:37px;
+  padding:0!important;margin:0!important;
+  background:#FFFFFF!important;color:#234F3C!important;
+  border:1px solid #E4E2D8!important;border-radius:11px!important;
+  font:800 13px/1 "Plus Jakarta Sans",sans-serif!important;
+  display:grid;place-items:center;cursor:pointer!important;
+  transition:background .16s ease,border-color .16s ease,transform .16s ease;
+}
+.dale-cal-grid .dale-cal-day:not(:disabled):hover{
+  background:#EAD6BF!important;color:#173F35!important;
+  border-color:#BD8D64!important;transform:translateY(-1px);
+}
+.dale-cal-grid .dale-cal-day.today:not(.selected){
+  background:#ECF3ED!important;border:2px solid #285B46!important;color:#173F35!important;
+}
+.dale-cal-grid .dale-cal-day.selected{
+  color:#FFFFFF!important;border-color:#173F35!important;
+  background:#173F35!important;box-shadow:0 6px 12px rgba(17,61,47,.24);
+}
+.dale-cal-grid .dale-cal-day:disabled{
+  background:#E6E6DE!important;color:#A9AFA6!important;border-color:#E2E3D9!important;
+  cursor:not-allowed!important;opacity:.55;
+}
+.dale-cal-grid .dale-cal-day:focus-visible{outline:3px solid #BD8D64;outline-offset:2px}
+.dale-cal-quick{display:flex;align-items:center;flex-wrap:wrap;gap:7px;padding-top:20px;margin-top:13px;border-top:1px solid #DDDCCF}
+.dale-cal-quick > span{
+  font:800 9px/1.4 "Plus Jakarta Sans",sans-serif;
+  color:#688073;letter-spacing:.1em;margin-right:4px;
+}
+.dale-cal-quick button{
+  margin:0!important;padding:9px 11px!important;
+  min-height:35px;border-radius:9px!important;border:1px solid #C7CFBE!important;
+  background:#FFFFFF!important;color:#285140!important;
+  font:800 11px/1 "DM Sans",sans-serif!important;cursor:pointer;
+}
+.dale-cal-quick button:hover:not(:disabled){background:#DCD0BC!important;border-color:#BD8D64!important}
+.dale-cal-quick button:disabled{opacity:.33;cursor:not-allowed}
+.dale-cal-footer{
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+  padding:14px 22px 18px;border-top:1px solid #D9DCCF;
+  background:#EEEDE3;
+}
+.dale-cal-footer span{font:600 10px/1.5 "DM Sans",sans-serif;color:#617668}
+.dale-cal-footer button{
+  margin:0!important;padding:10px 20px!important;min-height:39px;
+  background:#BD8D64!important;color:#102F28!important;border:0!important;
+  border-radius:9px!important;font:800 12px/1 "Plus Jakarta Sans",sans-serif!important;
+  cursor:pointer;
+}
+.dale-cal-footer button:hover{background:#D3AC87!important}
+@media(max-width:450px){
+  .dale-cal-top{padding:15px 16px;min-height:90px}
+  .dale-cal-brand img{height:40px;width:40px}
+  .dale-cal-inner{padding:14px 15px 10px}
+  .dale-cal-weekdays,.dale-cal-grid{gap:4px}
+  .dale-cal-grid .dale-cal-day{min-height:34px;border-radius:9px!important}
+  .dale-cal-quick > span{flex-basis:100%}
+  .dale-cal-footer{padding:11px 15px 14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .dale-cal-grid .dale-cal-day,.dale-date-trigger{transition:none!important}
+}
