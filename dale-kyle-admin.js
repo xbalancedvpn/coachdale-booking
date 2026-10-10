@@ -133,8 +133,8 @@ async function render(bookings,locks){
  basic();
  try{await window.DaleOps?.load?.();const fresh=window.DaleOps?.meta?.();state.clients=fresh?.clients||[];state.payments=fresh?.payments||[];basic()}catch(e){console.warn("Dale overview load:",e.message)}
 }
-function signedIn(email){$("adminEmail").textContent=email||""}
-function signedOut(){state.bookings=[];state.locks=[];state.clients=[];state.payments=[];nav(true)}
+function signedIn(email){$("adminEmail").textContent=email||"";window.DaleMedia?.setAuthorized(true)}
+function signedOut(){window.DaleMedia?.setAuthorized(false);state.bookings=[];state.locks=[];state.clients=[];state.payments=[];nav(true)}
 $("adminMenuBtn").onclick=()=>nav();$("footerMenuBtn").onclick=()=>nav();$("adminNavBackdrop").onclick=()=>nav(true);
 for(const a of $("adminNav").querySelectorAll("a"))a.onclick=()=>nav(true);
 $("adminManualBookingLink").onclick=e=>{e.preventDefault();nav(true);$("opsManual").click()};
