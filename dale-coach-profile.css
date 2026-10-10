@@ -1,0 +1,261 @@
+/* Coach Dale / Alpine Elite — premium coach profile card
+ * Original portrait remains untouched. All enhancements are HTML/CSS overlays.
+ * Source: assets/branding/coach-dale-profile.jpg
+ */
+
+#coach .coach-profile-stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  max-width: 610px;
+  margin: 18px auto 59px;
+  padding: 0 12px 0 0;
+}
+
+/* Deliberately offset bronze border: layered effect without covering portrait. */
+#coach .coach-profile-stage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -15px;
+  right: 0;
+  bottom: -16px;
+  left: 22px;
+  border: 1.5px solid rgba(189,141,100,.62);
+  border-radius: 28px;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(189,141,100,.10),transparent 40%),
+    linear-gradient(160deg,transparent 87%,rgba(189,141,100,.14));
+}
+
+/* Very subtle court corner detail, outside the photo. */
+#coach .coach-profile-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: -2px;
+  top: 36%;
+  width: 48px;
+  height: 73px;
+  border-top: 2px solid rgba(189,141,100,.78);
+  border-right: 2px solid rgba(189,141,100,.78);
+  opacity: .67;
+  border-top-right-radius: 12px;
+  pointer-events: none;
+}
+
+#coach .coach-profile-stage .coach-photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 0 !important;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 25px;
+  border: 1px solid rgba(189,141,100,.66);
+  background: #D7D1C7;
+  box-shadow:
+    0 26px 58px rgba(12,47,38,.17),
+    0 3px 12px rgba(12,47,38,.08);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+#coach .coach-profile-stage .coach-photo > img {
+  position: absolute;
+  display: block;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  object-position: 50% 22% !important;
+  filter: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Darken only the lower 25% to help the certification label stand out. */
+#coach .coach-profile-stage .coach-photo::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 64% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(16,47,40,.18) 58%,rgba(16,47,40,.36));
+  pointer-events: none;
+}
+
+/* Minimal metallic corners — sporty, not busy. */
+#coach .coach-photo-corner {
+  position: absolute;
+  z-index: 3;
+  width: 33px;
+  height: 33px;
+  pointer-events: none;
+}
+#coach .coach-photo-corner--top {
+  top: 12px;
+  left: 12px;
+  border-top: 3px solid #BD8D64;
+  border-left: 3px solid #BD8D64;
+  border-top-left-radius: 8px;
+}
+#coach .coach-photo-corner--bottom {
+  right: 12px;
+  bottom: 12px;
+  border-right: 3px solid #BD8D64;
+  border-bottom: 3px solid #BD8D64;
+  border-bottom-right-radius: 8px;
+}
+
+/* PPR certification badge floats inside the lower-left, clear of face/paddle. */
+#coach .coach-profile-cert {
+  position: absolute;
+  z-index: 4;
+  left: 15px;
+  bottom: 104px;
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100% - 30px);
+  min-height: 55px;
+  padding: 9px 13px 9px 10px;
+  border: 1px solid rgba(189,141,100,.88);
+  border-radius: 12px;
+  background: rgba(16,47,40,.95);
+  box-shadow: 0 9px 22px rgba(4,24,18,.26);
+  color: #F5F1E8;
+  text-align: left;
+  pointer-events: none;
+}
+#coach .coach-profile-cert-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(189,141,100,.16);
+  color: #E6BB95;
+}
+#coach .coach-profile-cert-icon svg {
+  width: 21px;
+  height: 21px;
+}
+#coach .coach-profile-cert-copy {
+  display: grid;
+  gap: 3px;
+}
+#coach .coach-profile-cert-copy strong {
+  font: 800 11px/1.15 "Plus Jakarta Sans","Segoe UI",sans-serif;
+  letter-spacing: .09em;
+  color: #F5F1E8;
+}
+#coach .coach-profile-cert-copy small {
+  font: 700 9px/1.25 "DM Sans","Segoe UI",sans-serif;
+  letter-spacing: .11em;
+  color: #E1B995;
+}
+
+/* Offset nameplate partly overlaps lower photo edge. */
+#coach .coach-profile-nameplate {
+  position: absolute;
+  z-index: 5;
+  right: -3px;
+  bottom: -32px;
+  left: clamp(22px,6%,38px);
+  min-height: 83px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 13px 19px 14px 24px;
+  border: 1px solid #B98B61;
+  border-left: 5px solid #BD8D64;
+  border-radius: 13px;
+  background: linear-gradient(105deg, #102F28 1%, #1C4D3D 94%);
+  box-shadow: 0 13px 30px rgba(6,30,21,.25);
+  color: #F5F1E8;
+  pointer-events: none;
+}
+#coach .coach-profile-nameplate strong {
+  font: 800 clamp(18px,2.2vw,25px)/1.08 "Plus Jakarta Sans","Segoe UI",sans-serif;
+  letter-spacing: -.045em;
+  color: #F5F1E8;
+}
+#coach .coach-profile-nameplate small {
+  font: 800 9px/1.5 "DM Sans","Segoe UI",sans-serif;
+  letter-spacing: .17em;
+  color: #E0B794;
+}
+#coach .coach-profile-nameplate-decor {
+  position: absolute;
+  right: 17px;
+  top: 13px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-right: 1px solid rgba(189,141,100,.59);
+  border-top: 1px solid rgba(189,141,100,.59);
+}
+
+/* Keep the existing coach text column's hierarchy intact. */
+#coach .coach-copy {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  #coach .coach-profile-stage:hover .coach-photo {
+    transform: translateY(-3px);
+    box-shadow: 0 30px 64px rgba(12,47,38,.21),0 4px 12px rgba(12,47,38,.08);
+  }
+}
+@media (max-width: 780px) {
+  #coach .coach-profile-stage {
+    width: min(100%, 590px);
+    margin: 19px auto 70px;
+    padding-right: 10px;
+  }
+  #coach .coach-profile-stage::before {
+    top: -12px;
+    left: 16px;
+    bottom: -13px;
+    right: -1px;
+    border-radius: 24px;
+  }
+  #coach .coach-profile-stage .coach-photo {
+    border-radius: 24px;
+  }
+  #coach .coach-profile-cert {
+    left: 12px;
+    bottom: 91px;
+    min-height: 51px;
+    padding: 8px 11px 8px 9px;
+    gap: 8px;
+  }
+  #coach .coach-profile-cert-icon {width:31px;height:31px;flex-basis:31px}
+  #coach .coach-profile-nameplate {
+    right: -1px;
+    bottom: -27px;
+    left: 24px;
+    min-height: 76px;
+    padding: 12px 13px 12px 19px;
+  }
+  #coach .coach-profile-nameplate strong { font-size: clamp(18px, 4.7vw, 23px); }
+}
+@media (max-width: 390px) {
+  #coach .coach-profile-stage {margin-bottom:62px}
+  #coach .coach-profile-cert {bottom:87px;left:10px;max-width:calc(100% - 20px)}
+  #coach .coach-profile-cert-copy strong {font-size:10px}
+  #coach .coach-profile-nameplate {left:16px;right:0}
+  #coach .coach-profile-nameplate small {letter-spacing:.12em;font-size:8px}
+}
+@media (prefers-reduced-motion: reduce) {
+  #coach .coach-profile-stage .coach-photo {transition:none}
+}
