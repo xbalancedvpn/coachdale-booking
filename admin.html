@@ -7,7 +7,7 @@
 <title>Coach Dale | Coaching Operations</title>
 <link rel="icon" type="image/png" href="assets/branding/coach-dale-favicon.png?v=1">
 <link rel="apple-touch-icon" href="assets/branding/coach-dale-favicon.png?v=1">
-<link rel="stylesheet" href="dale-kyle-admin.css?v=2"><link rel="stylesheet" href="dale-date-picker.css?v=2"><link rel="stylesheet" href="dale-typography.css?v=1">
+<link rel="stylesheet" href="dale-kyle-admin.css?v=2"><link rel="stylesheet" href="dale-date-picker.css?v=2"><link rel="stylesheet" href="dale-typography.css?v=1"><link rel="stylesheet" href="dale-admin-inline-calendar.css?v=1">
 </head><body>
 <div id="adminNotice" class="da-status-toast" role="status" aria-live="polite"></div>
 <section id="daleLogin" class="auth">
@@ -35,6 +35,7 @@
   <div class="admin-head-actions">
    <button id="shareBookingLinkBtn" class="admin-quick-btn" type="button" title="Copy public booking link" aria-label="Copy booking link">🔗</button>
    <button id="quickWeeklyScheduleBtn" class="admin-quick-btn" type="button" title="Weekly availability PNG" aria-label="Weekly availability">🗓️</button>
+   <button id="adminCalendarBtn" class="admin-quick-btn dale-calendar-shortcut" type="button" title="Open Schedule Calendar" aria-label="Go to schedule calendar">📅</button>
    <div class="admin-notify-wrap" id="adminNotifyWrap">
     <button id="adminNotifyBtn" class="admin-notify-btn" type="button" title="Booking notifications" aria-label="Booking notifications" aria-expanded="false">🔔<span id="adminNotifyBadge" class="admin-notify-badge hidden-badge">0</span></button>
     <div id="adminNotifyPanel" class="admin-notify-panel">
@@ -57,7 +58,7 @@
    <a href="#bookingsSection" id="adminManualBookingLink">+ Manual Booking</a>
    <a href="#paymentFollowupSection">Payment Follow-up</a>
    <a href="#completedSessionsSection">Completed Sessions</a>
-   <a href="#scheduleSection">Schedule</a>
+   <a href="#scheduleSection">📅 Schedule Calendar</a>
    <div class="admin-nav-group">Clients</div>
    <a href="#clientsSection">Client Profiles</a>
    <div class="admin-nav-group">Finances</div>
@@ -117,7 +118,23 @@
   </section>
   <section class="panel" id="scheduleSection">
    <div class="panel-head"><div><span class="eyebrow">SCHEDULE</span><h2>Block / Unblock Hours</h2><p class="panel-note">10:00 AM – 10:00 PM · Choose a date and manage availability.</p></div></div>
-   <label class="date-label">Selected date<input id="blockDate" type="date" required></label>
+   <div class="dale-inline-calendar" id="daleAdminCalendar" role="group" aria-label="Coach Dale schedule calendar">
+    <div class="dale-inline-cal-header">
+      <div><span class="eyebrow">COACHING CALENDAR</span><h3>Select a schedule date</h3></div>
+      <div class="dale-inline-cal-nav">
+        <button id="daleInlinePrev" type="button" aria-label="Previous calendar month">‹</button>
+        <strong id="daleInlineMonth" aria-live="polite"></strong>
+        <button id="daleInlineNext" type="button" aria-label="Next calendar month">›</button>
+      </div>
+    </div>
+    <div id="daleInlineWeekdays" class="dale-inline-weekdays" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+    <div id="daleInlineGrid" class="dale-inline-grid"><p class="panel-note">Loading schedule calendar…</p></div>
+    <div class="dale-inline-cal-key"><span><i class="dale-dot available"></i> Available</span><span><i class="dale-dot reserved"></i> With reservations</span><span><i class="dale-dot blocked"></i> Blocked</span></div>
+  </div>
+   <div class="dale-calendar-date-row">
+     <label class="date-label">Selected date<input id="blockDate" type="date" required></label>
+     <button id="adminOpenDatePicker" class="ghost dale-open-date-picker" type="button">Open Date Picker</button>
+   </div>
    <div id="scheduleSlots" class="slots"><div class="empty">Loading availability…</div></div>
    <div class="da-schedule-detail">
     <div class="grid" style="align-items:start">
@@ -184,5 +201,5 @@
 <script>window.DALE_SUPABASE_KEY="sb_publishable_2I-ZQ7mAxp8mDSftamqgSw_dHTmHZbs"</script>
 <script src="dale-ops.js?v=3"></script>
 <script src="dale-kyle-admin.js?v=2"></script><script src="dale-media-admin.js?v=1"></script>
-<script src="dale-admin.js?v=6"></script><script src="dale-date-picker.js?v=2"></script>
+<script src="dale-admin.js?v=6"></script><script src="dale-date-picker.js?v=2"></script><script src="dale-admin-calendar.js?v=1"></script>
 </body></html>
